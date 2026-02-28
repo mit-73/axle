@@ -1,0 +1,33 @@
+{
+  "app": {
+    "name": "Axle"
+  },
+  "nav": {
+    "projects": "Projects",
+    "settings": "Settings",
+    "aiProviders": "AI Providers"
+  },
+  "pages": {
+    "projectList": "Projects",
+    "projectCreate": "New Project",
+    "projectDetail": "Project",
+    "kanbanBoard": "Board",
+    "backlog": "Backlog",
+    "epicList": "Epics",
+    "insights": "Insights",
+    "settings": "Settings",
+    "aiProviders": "AI Providers"
+  },
+  "actions": {
+    "create": "Create",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "empty": "Nothing here yet"
+  }
+}

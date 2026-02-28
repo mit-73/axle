@@ -1,0 +1,22 @@
+version: v2
+
+inputs:
+  - directory: proto
+
+plugins:
+  # Go
+  - local: [go, -C, generated, tool, protoc-gen-go]
+    out: generated/go
+    opt: paths=source_relative
+  - local: [go, -C, generated, tool, protoc-gen-connect-go]
+    out: generated/go
+    opt:
+      - paths=source_relative
+      - simple
+
+  # TypeScript / ES
+  - local: [pnpm, --dir, generated, exec, protoc-gen-es]
+    out: generated/es
+    include_imports: true
+    opt:
+      - target=ts

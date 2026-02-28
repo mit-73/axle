@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package ai.v1;
+
+option go_package = "github.com/ApeironFoundation/axle/contracts/generated/go/ai/v1;aiv1";
+
+import "google/protobuf/timestamp.proto";
+
+// AITaskStatus represents execution state of an AI task.
+enum AITaskStatus {
+  AI_TASK_STATUS_UNSPECIFIED = 0;
+  AI_TASK_STATUS_PENDING = 1;
+  AI_TASK_STATUS_RUNNING = 2;
+  AI_TASK_STATUS_DONE = 3;
+  AI_TASK_STATUS_FAILED = 4;
+}
+
+// AITask is the NATS-serialised envelope shared between Gateway and AI Service.
+message AITask {
+  string id = 1;
+  string project_id = 2;
+  string user_id = 3;
+  string type = 4;
+  bytes payload = 5;
+  AITaskStatus status = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+// AITaskResult is the NATS-serialised response from AI Service.
+message AITaskResult {
+  string task_id = 1;
+  AITaskStatus status = 2;
+  bytes output = 3;
+  string error = 4;
+  google.protobuf.Timestamp completed_at = 5;
+}
+
+// ── Run (streaming) ───────────────────────────────────────────────────────────
+
+message RunAITaskRequest {
+  string project_id = 1;
+  string type = 2;
+  bytes payload = 3;
+}
+
+message RunAITaskResponse {
+  string task_id = 1;
+  AITaskStatus status = 2;
+  // Partial token stream for streaming responses.
+  string chunk = 3;
+  bool done = 4;
+}
+
+// ── Service ───────────────────────────────────────────────────────────────────
+
+// AITaskService is exposed by the LLM Service over ConnectRPC.
+service AITaskService {
+  // RunAITask submits a task and streams back partial results.
+  rpc RunAITask(RunAITaskRequest) returns (stream RunAITaskResponse);
+}

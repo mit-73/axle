@@ -1,3 +1,14 @@
+### AI ###
+
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+
+.github/copilot-instructions.md
+.github/instructions/
+.github/skills/
+.claude/skills/
+
 ### Universal ###
 # Common files that should be ignored in all projects
 
@@ -131,7 +142,7 @@ out/
 .idea/goland.xml
 .idea/golangProjectSettings.xml
 .idea/goLibraries.xml
-go.work
+go.work.sum
 go.sum
 
 .idea/goprojector.xml
@@ -184,8 +195,7 @@ storybook-static/
 *.test
 vendor/
 *.out
-go.work
-
+go.work.sum
 go.sum
 
 ### Python ###
@@ -220,6 +230,7 @@ share/python-wheels/
 MANIFEST
 .venv
 env/
+.conda
 
 venv/
 ENV/

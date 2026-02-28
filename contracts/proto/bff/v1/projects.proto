@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package bff.v1;
+
+option go_package = "github.com/ApeironFoundation/axle/contracts/generated/go/bff/v1;bffv1";
+
+import "google/protobuf/timestamp.proto";
+
+// ProjectStatus represents lifecycle state of a project.
+enum ProjectStatus {
+  PROJECT_STATUS_UNSPECIFIED = 0;
+  PROJECT_STATUS_ACTIVE = 1;
+  PROJECT_STATUS_ARCHIVED = 2;
+}
+
+message Project {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  ProjectStatus status = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+// ── List ──────────────────────────────────────────────────────────────────────
+
+message ListProjectsRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message ListProjectsResponse {
+  repeated Project projects = 1;
+  int32 total = 2;
+}
+
+// ── Get ───────────────────────────────────────────────────────────────────────
+
+message GetProjectRequest {
+  string id = 1;
+}
+
+message GetProjectResponse {
+  Project project = 1;
+}
+
+// ── Create ────────────────────────────────────────────────────────────────────
+
+message CreateProjectRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message CreateProjectResponse {
+  Project project = 1;
+}
+
+// ── Update ────────────────────────────────────────────────────────────────────
+
+message UpdateProjectRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  ProjectStatus status = 4;
+}
+
+message UpdateProjectResponse {
+  Project project = 1;
+}
+
+// ── Delete ────────────────────────────────────────────────────────────────────
+
+message DeleteProjectRequest {
+  string id = 1;
+}
+
+message DeleteProjectResponse {}
+
+// ── Service ───────────────────────────────────────────────────────────────────
+
+service ProjectService {
+  rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse);
+  rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
+  rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse);
+  rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse);
+}
