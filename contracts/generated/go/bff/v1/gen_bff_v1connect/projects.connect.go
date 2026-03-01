@@ -2,13 +2,13 @@
 //
 // Source: bff/v1/projects.proto
 
-package bffv1connect
+package gen_bff_v1connect
 
 import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "github.com/ApeironFoundation/axle/contracts/generated/go/bff/v1"
+	v1 "github.com/ApeironFoundation/axle/contracts/go/bff/v1"
 	http "net/http"
 	strings "strings"
 )

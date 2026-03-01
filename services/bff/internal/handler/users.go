@@ -6,12 +6,12 @@ import (
 
 	"connectrpc.com/connect"
 
-	bffv1 "github.com/ApeironFoundation/axle/contracts/generated/go/bff/v1"
-	"github.com/ApeironFoundation/axle/contracts/generated/go/bff/v1/bffv1connect"
+	bffv1 "github.com/ApeironFoundation/axle/contracts/go/bff/v1"
+	"github.com/ApeironFoundation/axle/contracts/go/bff/v1/gen_bff_v1connect"
 )
 
 // Compile-time interface check.
-var _ bffv1connect.UserServiceHandler = (*UsersHandler)(nil)
+var _ gen_bff_v1connect.UserServiceHandler = (*UsersHandler)(nil)
 
 // UsersHandler implements the bff.v1.UserService ConnectRPC methods.
 type UsersHandler struct{}

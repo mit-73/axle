@@ -8,7 +8,7 @@ import (
 
 // Config holds all configuration for the LLM service.
 type Config struct {
-	Port        int    // PORT (default: 8082)
+	Port        int    // PORT (default: 9003)
 	PostgresDSN string // POSTGRES_DSN
 	NatsURL     string // NATS_URL
 	LogLevel    string // LOG_LEVEL (default: info)
@@ -22,7 +22,7 @@ type Config struct {
 
 // Load reads configuration from environment variables with sensible defaults.
 func Load() (*Config, error) {
-	port, err := getEnvInt("PORT", 8082)
+	port, err := getEnvInt("PORT", 9003)
 	if err != nil {
 		return nil, fmt.Errorf("invalid PORT: %w", err)
 	}

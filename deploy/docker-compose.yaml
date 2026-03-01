@@ -1,0 +1,91 @@
+services:
+  # App services only.
+  # Merge with deploy/docker-compose.infra.yaml to include infra.
+  # Example:
+  #   docker compose -f deploy/docker-compose.infra.yaml -f deploy/docker-compose.yaml up --build
+
+  bff:
+    build:
+      context: ..
+      dockerfile: services/bff/Dockerfile
+    container_name: axle-bff
+    restart: unless-stopped
+    environment:
+      PORT: ${BFF_CONTAINER_PORT}
+      POSTGRES_DSN: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_CONTAINER_PORT}/${POSTGRES_DB}?sslmode=disable
+      REDIS_URL: redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_CONTAINER_PORT}/0
+      NATS_URL: nats://${NATS_HOST}:${NATS_CONTAINER_PORT}
+      MINIO_URL: http://${MINIO_HOST}:${MINIO_CONTAINER_PORT}
+      MINIO_USER: ${MINIO_ROOT_USER}
+      MINIO_PASS: ${MINIO_ROOT_PASSWORD}
+      LOG_LEVEL: ${BFF_LOG_LEVEL}
+    ports:
+      - "${BFF_PORT}:${BFF_CONTAINER_PORT}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      minio:
+        condition: service_started
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: services/gateway/Dockerfile
+    container_name: axle-gateway
+    restart: unless-stopped
+    environment:
+      PORT: ${GATEWAY_CONTAINER_PORT}
+      NATS_URL: nats://${NATS_HOST}:${NATS_CONTAINER_PORT}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_CONTAINER_PORT}/0
+      LOG_LEVEL: ${GATEWAY_LOG_LEVEL}
+    ports:
+      - "${GATEWAY_PORT}:${GATEWAY_CONTAINER_PORT}"
+    depends_on:
+      redis:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+
+  llm:
+    build:
+      context: ..
+      dockerfile: services/llm/Dockerfile
+    container_name: axle-llm
+    restart: unless-stopped
+    environment:
+      PORT: ${LLM_CONTAINER_PORT}
+      POSTGRES_DSN: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_CONTAINER_PORT}/${POSTGRES_DB}?sslmode=disable
+      NATS_URL: nats://${NATS_HOST}:${NATS_CONTAINER_PORT}
+      LOG_LEVEL: ${LLM_LOG_LEVEL}
+      DEFAULT_PROVIDER: ${LLM_DEFAULT_PROVIDER}
+      DEFAULT_MODEL: ${LLM_DEFAULT_MODEL}
+      OPENAI_API_KEY: ${LLM_OPENAI_API_KEY}
+      ANTHROPIC_API_KEY: ${LLM_ANTHROPIC_API_KEY}
+    ports:
+      - "${LLM_PORT}:${LLM_CONTAINER_PORT}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_BFF_URL: ${VITE_BFF_URL}
+        VITE_GATEWAY_URL: ${VITE_GATEWAY_URL}
+    container_name: axle-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_CONTAINER_PORT}"
+    depends_on:
+      bff:
+        condition: service_started
+      gateway:
+        condition: service_started

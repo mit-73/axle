@@ -1,13 +1,12 @@
 version: "2"
-
 sql:
-  - schema: "db/migrations"
-    queries: "db/queries"
+  - schema: "migrations"
+    queries: "queries"
     engine: "postgresql"
     gen:
       go:
-        package: "store"
-        out: "internal/store"
+        out: "generated"
+        package: "gen_db"
         sql_package: "pgx/v5"
         emit_json_tags: true
         emit_pointers_for_null_types: true
@@ -16,9 +15,3 @@ sql:
             go_type: "github.com/jackc/pgx/v5/pgtype.UUID"
           - db_type: "timestamptz"
             go_type: "github.com/jackc/pgx/v5/pgtype.Timestamptz"
-          - db_type: "user_role"
-            go_type:
-              type: "string"
-          - db_type: "project_status"
-            go_type:
-              type: "string"

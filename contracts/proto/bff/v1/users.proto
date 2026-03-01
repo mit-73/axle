@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package bff.v1;
 
-option go_package = "github.com/ApeironFoundation/axle/contracts/generated/go/bff/v1;bffv1";
+option go_package = "github.com/ApeironFoundation/axle/contracts/go/bff/v1;gen_bff_v1";
 
 import "google/protobuf/timestamp.proto";
 

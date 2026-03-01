@@ -1,6 +1,6 @@
 // Package bifrost wraps the maximhq/bifrost SDK and provides a thin Client
 // used by the LLM service handlers.
-package bifrost
+package bifrostclient
 
 import (
 	"context"

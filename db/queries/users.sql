@@ -20,8 +20,8 @@ RETURNING *;
 -- name: UpdateUser :one
 UPDATE users
 SET
-    name       = COALESCE(NULLIF($2, ''), name),
-    locale     = COALESCE(NULLIF($3, ''), locale),
+    name       = COALESCE(sqlc.narg(name), name),
+    locale     = COALESCE(sqlc.narg(locale), locale),
     updated_at = NOW()
 WHERE id = $1
 RETURNING *;

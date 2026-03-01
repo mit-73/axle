@@ -2,13 +2,13 @@
 //
 // Source: gateway/v1/streaming.proto
 
-package gatewayv1connect
+package gen_gateway_v1connect
 
 import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "github.com/ApeironFoundation/axle/contracts/generated/go/gateway/v1"
+	v1 "github.com/ApeironFoundation/axle/contracts/go/gateway/v1"
 	http "net/http"
 	strings "strings"
 )

@@ -25,8 +25,7 @@ import (
 	"github.com/ApeironFoundation/axle/bff/internal/middleware"
 	"github.com/ApeironFoundation/axle/bff/internal/natsclient"
 	"github.com/ApeironFoundation/axle/bff/internal/redisclient"
-
-	"github.com/ApeironFoundation/axle/contracts/generated/go/bff/v1/bffv1connect"
+	"github.com/ApeironFoundation/axle/contracts/go/bff/v1/gen_bff_v1connect"
 )
 
 func main() {
@@ -105,10 +104,10 @@ func main() {
 
 	// ConnectRPC handlers (served over HTTP/2 h2c, no auth middleware for smoke test)
 	connectMux := http.NewServeMux()
-	connectMux.Handle(bffv1connect.NewProjectServiceHandler(
+	connectMux.Handle(gen_bff_v1connect.NewProjectServiceHandler(
 		&handler.ProjectsHandler{Pool: pool},
 	))
-	connectMux.Handle(bffv1connect.NewUserServiceHandler(
+	connectMux.Handle(gen_bff_v1connect.NewUserServiceHandler(
 		&handler.UsersHandler{},
 	))
 

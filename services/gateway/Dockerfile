@@ -1,12 +1,13 @@
 # ── Build stage ───────────────────────────────────────────────────────────────
-FROM golang:1.25-alpine AS builder
+FROM golang:1.26-alpine AS builder
 
-WORKDIR /build
+WORKDIR /src
 
-COPY go.mod go.sum ./
+COPY contracts/generated /src/contracts/generated
+COPY services/gateway /src/services/gateway
+
+WORKDIR /src/services/gateway
 RUN go mod download
-
-COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux go build \
     -ldflags="-s -w" \
@@ -18,7 +19,7 @@ FROM gcr.io/distroless/static-debian12 AS runtime
 
 COPY --from=builder /bin/gateway /gateway
 
-EXPOSE 8081
+EXPOSE 9002
 
 USER nonroot:nonroot
 

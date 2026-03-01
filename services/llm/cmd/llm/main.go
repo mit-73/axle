@@ -17,15 +17,14 @@ import (
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 
-	"github.com/ApeironFoundation/axle/llm/internal/bifrost"
+	"github.com/ApeironFoundation/axle/contracts/go/ai/v1/gen_ai_v1connect"
+	"github.com/ApeironFoundation/axle/llm/internal/bifrostclient"
 	"github.com/ApeironFoundation/axle/llm/internal/config"
 	"github.com/ApeironFoundation/axle/llm/internal/db"
 	"github.com/ApeironFoundation/axle/llm/internal/enterprise"
 	"github.com/ApeironFoundation/axle/llm/internal/handler"
 	"github.com/ApeironFoundation/axle/llm/internal/health"
 	"github.com/ApeironFoundation/axle/llm/internal/natsclient"
-
-	"github.com/ApeironFoundation/axle/contracts/generated/go/ai/v1/aiv1connect"
 )
 
 func main() {
@@ -71,7 +70,7 @@ func main() {
 
 	// ── Bifrost / LLM client ─────────────────────────────────────────────────
 	log.Info().Msg("initialising bifrost client")
-	bf, err := bifrost.New(ctx, cfg)
+	bf, err := bifrostclient.New(ctx, cfg)
 	if err != nil {
 		log.Fatal().Err(err).Msg("bifrost init failed")
 	}
@@ -105,7 +104,7 @@ func main() {
 
 	// ConnectRPC handlers
 	connectMux := http.NewServeMux()
-	connectMux.Handle(aiv1connect.NewAITaskServiceHandler(
+	connectMux.Handle(gen_ai_v1connect.NewAITaskServiceHandler(
 		handler.NewAITaskHandler(bf, log.Logger),
 	))
 

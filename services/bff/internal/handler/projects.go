@@ -7,12 +7,12 @@ import (
 	"connectrpc.com/connect"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	bffv1 "github.com/ApeironFoundation/axle/contracts/generated/go/bff/v1"
-	"github.com/ApeironFoundation/axle/contracts/generated/go/bff/v1/bffv1connect"
+	bffv1 "github.com/ApeironFoundation/axle/contracts/go/bff/v1"
+	"github.com/ApeironFoundation/axle/contracts/go/bff/v1/gen_bff_v1connect"
 )
 
 // Compile-time interface check.
-var _ bffv1connect.ProjectServiceHandler = (*ProjectsHandler)(nil)
+var _ gen_bff_v1connect.ProjectServiceHandler = (*ProjectsHandler)(nil)
 
 // ProjectsHandler implements the bff.v1.ProjectService ConnectRPC methods.
 // Stub implementation — real DB queries wired when migrations are applied.

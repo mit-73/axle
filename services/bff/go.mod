@@ -2,9 +2,13 @@ module github.com/ApeironFoundation/axle/bff
 
 go 1.26
 
+replace github.com/ApeironFoundation/axle/contracts => ../../contracts/generated
+
+replace github.com/ApeironFoundation/axle/db => ../../db
+
 require (
-	github.com/ApeironFoundation/axle/contracts/generated v0.0.0
 	connectrpc.com/connect v1.19.1
+	github.com/ApeironFoundation/axle/contracts v0.0.0
 	github.com/go-chi/chi/v5 v5.2.1
 	github.com/google/uuid v1.6.0
 	github.com/jackc/pgx/v5 v5.7.5
@@ -31,7 +35,5 @@ require (
 	golang.org/x/sync v0.16.0 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 	golang.org/x/text v0.27.0 // indirect
-	google.golang.org/protobuf v1.36.9 // indirect
+	google.golang.org/protobuf v1.36.11 // indirect
 )
-
-replace github.com/ApeironFoundation/axle/contracts/generated => ../../contracts/generated

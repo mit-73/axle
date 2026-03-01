@@ -17,9 +17,9 @@ RETURNING *;
 -- name: UpdateProject :one
 UPDATE projects
 SET
-    name        = COALESCE(NULLIF($2, ''), name),
-    description = COALESCE(NULLIF($3, ''), description),
-    status      = COALESCE($4, status),
+    name        = COALESCE(sqlc.narg(name), name),
+    description = COALESCE(sqlc.narg(description), description),
+    status      = COALESCE(sqlc.narg(status)::project_status, status),
     updated_at  = NOW()
 WHERE id = $1
 RETURNING *;

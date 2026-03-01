@@ -3,8 +3,8 @@ module github.com/ApeironFoundation/axle/gateway
 go 1.26
 
 require (
-	github.com/ApeironFoundation/axle/contracts/generated v0.0.0
 	connectrpc.com/connect v1.19.1
+	github.com/ApeironFoundation/axle/contracts v0.0.0
 	github.com/go-chi/chi/v5 v5.2.1
 	github.com/google/uuid v1.6.0
 	github.com/nats-io/nats.go v1.39.1
@@ -12,7 +12,7 @@ require (
 	github.com/rs/cors v1.11.1
 	github.com/rs/zerolog v1.33.0
 	golang.org/x/net v0.38.0
-	google.golang.org/protobuf v1.36.9
+	google.golang.org/protobuf v1.36.11
 )
 
 require (
@@ -28,4 +28,4 @@ require (
 	golang.org/x/text v0.23.0 // indirect
 )
 
-replace github.com/ApeironFoundation/axle/contracts/generated => ../../contracts/generated
+replace github.com/ApeironFoundation/axle/contracts => ../../contracts/generated

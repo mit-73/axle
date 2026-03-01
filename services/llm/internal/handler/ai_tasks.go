@@ -8,24 +8,24 @@ import (
 	"github.com/google/uuid"
 	"github.com/rs/zerolog"
 
-	aiv1 "github.com/ApeironFoundation/axle/contracts/generated/go/ai/v1"
-	"github.com/ApeironFoundation/axle/contracts/generated/go/ai/v1/aiv1connect"
+	aiv1 "github.com/ApeironFoundation/axle/contracts/go/ai/v1"
+	"github.com/ApeironFoundation/axle/contracts/go/ai/v1/gen_ai_v1connect"
 
 	"github.com/ApeironFoundation/axle/llm/internal/agents"
-	"github.com/ApeironFoundation/axle/llm/internal/bifrost"
+	"github.com/ApeironFoundation/axle/llm/internal/bifrostclient"
 )
 
 // Compile-time interface check.
-var _ aiv1connect.AITaskServiceHandler = (*AITaskHandler)(nil)
+var _ gen_ai_v1connect.AITaskServiceHandler = (*AITaskHandler)(nil)
 
 // AITaskHandler implements ai.v1.AITaskService ConnectRPC methods.
 type AITaskHandler struct {
-	bifrost *bifrost.Client
+	bifrost *bifrostclient.Client
 	log     zerolog.Logger
 }
 
 // NewAITaskHandler creates a new AITaskHandler.
-func NewAITaskHandler(bf *bifrost.Client, log zerolog.Logger) *AITaskHandler {
+func NewAITaskHandler(bf *bifrostclient.Client, log zerolog.Logger) *AITaskHandler {
 	return &AITaskHandler{bifrost: bf, log: log}
 }
 

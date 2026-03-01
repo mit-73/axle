@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: ai/v1/ai_tasks.proto
 
-package aiv1
+package gen_ai_v1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -415,7 +415,7 @@ const file_ai_v1_ai_tasks_proto_rawDesc = "" +
 	"\x13AI_TASK_STATUS_DONE\x10\x03\x12\x19\n" +
 	"\x15AI_TASK_STATUS_FAILED\x10\x042Q\n" +
 	"\rAITaskService\x12@\n" +
-	"\tRunAITask\x12\x17.ai.v1.RunAITaskRequest\x1a\x18.ai.v1.RunAITaskResponse0\x01BEZCgithub.com/ApeironFoundation/axle/contracts/generated/go/ai/v1;aiv1b\x06proto3"
+	"\tRunAITask\x12\x17.ai.v1.RunAITaskRequest\x1a\x18.ai.v1.RunAITaskResponse0\x01B@Z>github.com/ApeironFoundation/axle/contracts/go/ai/v1;gen_ai_v1b\x06proto3"
 
 var (
 	file_ai_v1_ai_tasks_proto_rawDescOnce sync.Once

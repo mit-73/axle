@@ -10,13 +10,13 @@ import (
 
 	"github.com/ApeironFoundation/axle/gateway/internal/hub"
 
-	gatewayv1 "github.com/ApeironFoundation/axle/contracts/generated/go/gateway/v1"
-	"github.com/ApeironFoundation/axle/contracts/generated/go/gateway/v1/gatewayv1connect"
+	gatewayv1 "github.com/ApeironFoundation/axle/contracts/go/gateway/v1"
+	"github.com/ApeironFoundation/axle/contracts/go/gateway/v1/gen_gateway_v1connect"
 	"github.com/google/uuid"
 )
 
 // Compile-time interface check.
-var _ gatewayv1connect.StreamingServiceHandler = (*Handler)(nil)
+var _ gen_gateway_v1connect.StreamingServiceHandler = (*Handler)(nil)
 
 // Handler implements the gateway.v1.StreamingService ConnectRPC handler.
 type Handler struct {

@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: bff/v1/projects.proto
 
-package bffv1
+package gen_bff_v1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -685,7 +685,7 @@ const file_bff_v1_projects_proto_rawDesc = "" +
 	"GetProject\x12\x19.bff.v1.GetProjectRequest\x1a\x1a.bff.v1.GetProjectResponse\x12L\n" +
 	"\rCreateProject\x12\x1c.bff.v1.CreateProjectRequest\x1a\x1d.bff.v1.CreateProjectResponse\x12L\n" +
 	"\rUpdateProject\x12\x1c.bff.v1.UpdateProjectRequest\x1a\x1d.bff.v1.UpdateProjectResponse\x12L\n" +
-	"\rDeleteProject\x12\x1c.bff.v1.DeleteProjectRequest\x1a\x1d.bff.v1.DeleteProjectResponseBGZEgithub.com/ApeironFoundation/axle/contracts/generated/go/bff/v1;bffv1b\x06proto3"
+	"\rDeleteProject\x12\x1c.bff.v1.DeleteProjectRequest\x1a\x1d.bff.v1.DeleteProjectResponseBBZ@github.com/ApeironFoundation/axle/contracts/go/bff/v1;gen_bff_v1b\x06proto3"
 
 var (
 	file_bff_v1_projects_proto_rawDescOnce sync.Once

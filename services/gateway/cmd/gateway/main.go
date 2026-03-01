@@ -20,14 +20,13 @@ import (
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 
+	"github.com/ApeironFoundation/axle/contracts/go/gateway/v1/gen_gateway_v1connect"
 	"github.com/ApeironFoundation/axle/gateway/internal/config"
 	"github.com/ApeironFoundation/axle/gateway/internal/enterprise"
 	"github.com/ApeironFoundation/axle/gateway/internal/health"
 	"github.com/ApeironFoundation/axle/gateway/internal/hub"
 	"github.com/ApeironFoundation/axle/gateway/internal/natsclient"
 	"github.com/ApeironFoundation/axle/gateway/internal/streaming"
-
-	"github.com/ApeironFoundation/axle/contracts/generated/go/gateway/v1/gatewayv1connect"
 )
 
 func main() {
@@ -117,7 +116,7 @@ func main() {
 
 	// ConnectRPC streaming service
 	connectMux := http.NewServeMux()
-	connectMux.Handle(gatewayv1connect.NewStreamingServiceHandler(
+	connectMux.Handle(gen_gateway_v1connect.NewStreamingServiceHandler(
 		streaming.NewHandler(eventHub),
 	))
 	r.Handle("/gateway.v1.*", connectMux)

@@ -3,6 +3,8 @@ go 1.26
 use (
 	// Generated protobuf contracts
 	../contracts/generated
+	// Generated db
+	../db
 	// Services
 	./bff
 	./gateway

@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: gateway/v1/streaming.proto
 
-package gatewayv1
+package gen_gateway_v1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -240,7 +240,7 @@ const file_gateway_v1_streaming_proto_rawDesc = "" +
 	"\x13EVENT_TYPE_AI_CHUNK\x10\x04\x12\x16\n" +
 	"\x12EVENT_TYPE_AI_DONE\x10\x052R\n" +
 	"\x10StreamingService\x12>\n" +
-	"\tSubscribe\x12\x1c.gateway.v1.SubscribeRequest\x1a\x11.gateway.v1.Event0\x01BOZMgithub.com/ApeironFoundation/axle/contracts/generated/go/gateway/v1;gatewayv1b\x06proto3"
+	"\tSubscribe\x12\x1c.gateway.v1.SubscribeRequest\x1a\x11.gateway.v1.Event0\x01BJZHgithub.com/ApeironFoundation/axle/contracts/go/gateway/v1;gen_gateway_v1b\x06proto3"
 
 var (
 	file_gateway_v1_streaming_proto_rawDescOnce sync.Once

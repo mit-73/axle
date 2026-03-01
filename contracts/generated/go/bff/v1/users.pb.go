@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: bff/v1/users.proto
 
-package bffv1
+package gen_bff_v1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -587,7 +587,7 @@ const file_bff_v1_users_proto_rawDesc = "" +
 	"\aGetUser\x12\x16.bff.v1.GetUserRequest\x1a\x17.bff.v1.GetUserResponse\x124\n" +
 	"\x05GetMe\x12\x14.bff.v1.GetMeRequest\x1a\x15.bff.v1.GetMeResponse\x12C\n" +
 	"\n" +
-	"UpdateUser\x12\x19.bff.v1.UpdateUserRequest\x1a\x1a.bff.v1.UpdateUserResponseBGZEgithub.com/ApeironFoundation/axle/contracts/generated/go/bff/v1;bffv1b\x06proto3"
+	"UpdateUser\x12\x19.bff.v1.UpdateUserRequest\x1a\x1a.bff.v1.UpdateUserResponseBBZ@github.com/ApeironFoundation/axle/contracts/go/bff/v1;gen_bff_v1b\x06proto3"
 
 var (
 	file_bff_v1_users_proto_rawDescOnce sync.Once

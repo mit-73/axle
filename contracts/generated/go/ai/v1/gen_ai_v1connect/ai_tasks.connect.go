@@ -2,13 +2,13 @@
 //
 // Source: ai/v1/ai_tasks.proto
 
-package aiv1connect
+package gen_ai_v1connect
 
 import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "github.com/ApeironFoundation/axle/contracts/generated/go/ai/v1"
+	v1 "github.com/ApeironFoundation/axle/contracts/go/ai/v1"
 	http "net/http"
 	strings "strings"
 )

@@ -48,6 +48,4 @@ DROP TABLE IF EXISTS projects;
 DROP TABLE IF EXISTS users;
 DROP TYPE  IF EXISTS project_status;
 DROP TYPE  IF EXISTS user_role;
-DROP EXTENSION IF EXISTS vector;
-DROP EXTENSION IF EXISTS "uuid-ossp";
 -- +goose StatementEnd

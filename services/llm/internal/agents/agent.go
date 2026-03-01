@@ -9,7 +9,7 @@ import (
 	"github.com/maximhq/bifrost/core/schemas"
 	"github.com/rs/zerolog"
 
-	"github.com/ApeironFoundation/axle/llm/internal/bifrost"
+	"github.com/ApeironFoundation/axle/llm/internal/bifrostclient"
 	"github.com/ApeironFoundation/axle/llm/internal/prompts"
 )
 
@@ -23,12 +23,12 @@ type RunRequest struct {
 
 // Agent orchestrates a sequence of LLM calls for a given task type.
 type Agent struct {
-	client *bifrost.Client
+	client *bifrostclient.Client
 	log    zerolog.Logger
 }
 
 // New returns a new Agent.
-func New(client *bifrost.Client, log zerolog.Logger) *Agent {
+func New(client *bifrostclient.Client, log zerolog.Logger) *Agent {
 	return &Agent{client: client, log: log}
 }
 
