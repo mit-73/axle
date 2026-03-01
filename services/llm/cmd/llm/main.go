@@ -23,6 +23,7 @@ import (
 	"github.com/ApeironFoundation/axle/llm/internal/db"
 	"github.com/ApeironFoundation/axle/llm/internal/enterprise"
 	"github.com/ApeironFoundation/axle/llm/internal/handler"
+	"github.com/ApeironFoundation/axle/llm/internal/handler/nats"
 	"github.com/ApeironFoundation/axle/llm/internal/health"
 	"github.com/ApeironFoundation/axle/llm/internal/natsclient"
 )
@@ -64,6 +65,18 @@ func main() {
 	}
 	defer func() { _ = natsConns.NC.Drain() }()
 	log.Info().Msg("nats connected")
+	if cfg.EnableDev {
+		log.Warn().Msg("DEV-ONLY NATS subscriptions enabled: axle.events.test.ping, axle.test.ping.rpc")
+		devSubs, err := nats.StartDevPingSubscriptions(ctx, natsConns.NC, log.Logger)
+		if err != nil {
+			log.Fatal().Err(err).Msg("failed to start dev-only ping subscriptions")
+		}
+		defer func() {
+			for _, sub := range devSubs {
+				_ = sub.Unsubscribe()
+			}
+		}()
+	}
 
 	// ── Enterprise registry ──────────────────────────────────────────────────
 	_ = enterprise.NewRegistry()

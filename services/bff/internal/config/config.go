@@ -8,14 +8,15 @@ import (
 
 // Config holds all configuration for the BFF service loaded from environment variables.
 type Config struct {
-	Port        int
-	PostgresDSN string
-	RedisURL    string
-	NatsURL     string
-	MinIOURL    string
-	MinIOUser   string
-	MinIOPass   string
-	LogLevel    string
+	Port        int    // PORT (default: 9001)
+	PostgresDSN string // POSTGRES_DSN
+	RedisURL    string // REDIS_URL
+	NatsURL     string // NATS_URL
+	MinIOURL    string // MINIO_URL
+	MinIOUser   string // MINIO_USER
+	MinIOPass   string // MINIO_PASS
+	LogLevel    string // LOG_LEVEL (default: info)
+	EnableDev   bool   // ENABLE_DEV_ENDPOINTS (default: false)
 }
 
 // Load reads configuration from environment variables with sensible defaults.
@@ -34,6 +35,7 @@ func Load() (*Config, error) {
 		MinIOUser:   getEnv("MINIO_USER", "minioadmin"),
 		MinIOPass:   getEnv("MINIO_PASS", "minioadmin"),
 		LogLevel:    getEnv("LOG_LEVEL", "info"),
+		EnableDev:   getEnvBool("ENABLE_DEV_ENDPOINTS", false),
 	}, nil
 }
 
@@ -50,4 +52,16 @@ func getEnvInt(key string, fallback int) (int, error) {
 		return fallback, nil
 	}
 	return strconv.Atoi(v)
+}
+
+func getEnvBool(key string, fallback bool) bool {
+	v := os.Getenv(key)
+	if v == "" {
+		return fallback
+	}
+	b, err := strconv.ParseBool(v)
+	if err != nil {
+		return fallback
+	}
+	return b
 }

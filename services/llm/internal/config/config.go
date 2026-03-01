@@ -12,6 +12,7 @@ type Config struct {
 	PostgresDSN string // POSTGRES_DSN
 	NatsURL     string // NATS_URL
 	LogLevel    string // LOG_LEVEL (default: info)
+	EnableDev   bool   // ENABLE_DEV_ENDPOINTS (default: false)
 
 	// Bifrost provider settings (at least one must be set for LLM calls to work).
 	OpenAIAPIKey    string // OPENAI_API_KEY
@@ -35,6 +36,7 @@ func Load() (*Config, error) {
 		PostgresDSN:     os.Getenv("POSTGRES_DSN"),
 		NatsURL:         getEnv("NATS_URL", "nats://localhost:4222"),
 		LogLevel:        getEnv("LOG_LEVEL", "info"),
+		EnableDev:       getEnvBool("ENABLE_DEV_ENDPOINTS", false),
 		OpenAIAPIKey:    os.Getenv("OPENAI_API_KEY"),
 		AnthropicAPIKey: os.Getenv("ANTHROPIC_API_KEY"),
 		DefaultModel:    defaultModel,
@@ -55,4 +57,16 @@ func getEnvInt(key string, fallback int) (int, error) {
 		return fallback, nil
 	}
 	return strconv.Atoi(v)
+}
+
+func getEnvBool(key string, fallback bool) bool {
+	v := os.Getenv(key)
+	if v == "" {
+		return fallback
+	}
+	b, err := strconv.ParseBool(v)
+	if err != nil {
+		return fallback
+	}
+	return b
 }

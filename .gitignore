@@ -24,6 +24,7 @@ GEMINI.md
 .env
 *.env
 .env.*
+!.env.example
 
 # Local configuration that shouldn't be shared
 *.local

@@ -42,6 +42,10 @@ Then run services in separate terminals:
 just pipeline-debug-help
 ```
 
+For dev-only inter-service NATS validation, see:
+
+- [docs/dev-nats-smoke-test.md](docs/dev-nats-smoke-test.md)
+
 ## Core workflows
 
 This repository standardizes workflows via `justfile`.

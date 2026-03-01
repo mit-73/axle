@@ -17,6 +17,7 @@ require (
 	github.com/rs/cors v1.11.1
 	github.com/rs/zerolog v1.33.0
 	golang.org/x/net v0.42.0
+	google.golang.org/protobuf v1.36.11
 )
 
 require (
@@ -35,5 +36,4 @@ require (
 	golang.org/x/sync v0.16.0 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 	golang.org/x/text v0.27.0 // indirect
-	google.golang.org/protobuf v1.36.11 // indirect
 )

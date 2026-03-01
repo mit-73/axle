@@ -24,9 +24,9 @@ services:
       retries: 5
       start_period: 10s
 
-  # ── Redis 7 ─────────────────────────────────────────────────────────────────
+  # ── Redis 8 ─────────────────────────────────────────────────────────────────
   redis:
-    image: redis:7-alpine
+    image: redis:8.0-alpine
     container_name: axle-redis
     restart: unless-stopped
     command: redis-server --port ${REDIS_CONTAINER_PORT} --requirepass ${REDIS_PASSWORD}
@@ -51,7 +51,7 @@ services:
 
   # ── NATS with JetStream ──────────────────────────────────────────────────────
   nats:
-    image: nats:2-alpine
+    image: nats:2.12-alpine
     container_name: axle-nats
     restart: unless-stopped
     command:
@@ -80,37 +80,37 @@ services:
       retries: 5
 
   # ── MinIO (S3-compatible) ────────────────────────────────────────────────────
-  minio:
-    image: minio/minio:latest
-    container_name: axle-minio
-    restart: unless-stopped
-    command:
-      [
-        "server",
-        "/data",
-        "--address",
-        ":${MINIO_CONTAINER_PORT}",
-        "--console-address",
-        ":${MINIO_CONSOLE_CONTAINER_PORT}",
-      ]
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-    ports:
-      - "${MINIO_PORT}:${MINIO_CONTAINER_PORT}"
-      - "${MINIO_CONSOLE_PORT}:${MINIO_CONSOLE_CONTAINER_PORT}"
-    volumes:
-      - minio_data:/data
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "mc alias set local http://localhost:${MINIO_CONTAINER_PORT} ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD} >/dev/null 2>&1; mc ready local || exit 1",
-        ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+  # minio:
+  #   image: minio/minio:latest
+  #   container_name: axle-minio
+  #   restart: unless-stopped
+  #   command:
+  #     [
+  #       "server",
+  #       "/data",
+  #       "--address",
+  #       ":${MINIO_CONTAINER_PORT}",
+  #       "--console-address",
+  #       ":${MINIO_CONSOLE_CONTAINER_PORT}",
+  #     ]
+  #   environment:
+  #     MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+  #     MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+  #   ports:
+  #     - "${MINIO_PORT}:${MINIO_CONTAINER_PORT}"
+  #     - "${MINIO_CONSOLE_PORT}:${MINIO_CONSOLE_CONTAINER_PORT}"
+  #   volumes:
+  #     - minio_data:/data
+  #   healthcheck:
+  #     test:
+  #       [
+  #         "CMD-SHELL",
+  #         "mc alias set local http://localhost:${MINIO_CONTAINER_PORT} ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD} >/dev/null 2>&1; mc ready local || exit 1",
+  #       ]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 15s
 
 volumes:
   postgres_data:

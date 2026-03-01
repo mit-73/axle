@@ -79,6 +79,9 @@ func main() {
 
 	// Subscribe to NATS events topic and fan-out to hub
 	_, err = natsConns.NC.Subscribe("axle.events.>", func(msg *nats.Msg) {
+		if msg.Subject == "axle.events.test.ping" {
+			log.Info().Str("subject", msg.Subject).Int("bytes", len(msg.Data)).Msg("dev-only ping event received by gateway")
+		}
 		eventHub.Publish(context.Background(), msg.Data)
 	})
 	if err != nil {

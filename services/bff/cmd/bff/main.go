@@ -26,6 +26,7 @@ import (
 	"github.com/ApeironFoundation/axle/bff/internal/natsclient"
 	"github.com/ApeironFoundation/axle/bff/internal/redisclient"
 	"github.com/ApeironFoundation/axle/contracts/go/bff/v1/gen_bff_v1connect"
+	"github.com/ApeironFoundation/axle/contracts/go/test/v1/gen_test_v1connect"
 )
 
 func main() {
@@ -110,9 +111,16 @@ func main() {
 	connectMux.Handle(gen_bff_v1connect.NewUserServiceHandler(
 		&handler.UsersHandler{},
 	))
+	if cfg.EnableDev {
+		log.Warn().Msg("DEV-ONLY endpoint enabled: test.v1.TestService/Ping")
+		connectMux.Handle(gen_test_v1connect.NewTestServiceHandler(
+			&handler.TestPingHandler{NATS: natsConns.NC},
+		))
+	}
 
 	// Route all ConnectRPC traffic: /bff.v1.<Service>/<Method>
 	r.HandleFunc("/bff.v1.*", connectMux.ServeHTTP)
+	r.HandleFunc("/test.v1.*", connectMux.ServeHTTP)
 
 	// API routes (auth middleware applied)
 	r.Group(func(r chi.Router) {

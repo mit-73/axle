@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package test.v1;
+
+option go_package = "github.com/ApeironFoundation/axle/contracts/go/test/v1;gen_test_v1";
+
+import "google/protobuf/timestamp.proto";
+
+// PingRequest is a development-only smoke-test message used to validate
+// inter-service communication over NATS.
+message PingRequest {
+  string request_id = 1;
+  string message = 2;
+  google.protobuf.Timestamp sent_at = 3;
+}
+
+// PingReply is returned by the LLM service via NATS request-reply.
+message PingReply {
+  string request_id = 1;
+  string message = 2;
+  string responder = 3;
+  google.protobuf.Timestamp received_at = 4;
+}
+
+// TestService is dev-only and must not be exposed in production.
+service TestService {
+  rpc Ping(PingRequest) returns (PingReply);
+}
